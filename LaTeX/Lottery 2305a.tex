@@ -76,6 +76,135 @@
 
 \section{Numerical Analysis} \label{sec_numer}
 
+	In this section we calculate the expected welfare loss or gain from playing the lottery.  We assume that a lottery player already has a stochastic endowment of non-lottery income, denoted $x$ which will all be spent on consumption or the purchase of a single lottery ticket.  Utility from consumption comes from one of the five functional forms in Section \ref{sec_util}.  The distribution of non-lottery income is described by one of the probability density functions from Section \ref{sec_dist}.  The parameters of the lottery are laid out in Section \ref{sec_lottery}.
+
+	If the individual chooses not to play the lottery, their consumption ($c$) is exactly equal to their stochastic non-lottery income, so $c = x$.  If they choose to play the lottery then with probability $\tfrac{1}{\omega}$ their consumption will be their non-lottery income plus the lottery payoff ($p$) minus the cost of the lottery ticket ($t$), giving $c = x + p - t$.  However, if they lose the lottery, their consumption is non-lottery income minus the cost of the ticket, $c = x - t$
+
+	Disposable income is discretized over a grid with $n$ equally spaced points between $x_{min}$ and $x_{max}$.  The probabilities are generated using the density functions below and are scaled appropriately so that they sum to 1 over the $n$ points in the grid.
+
+
+	\subsection{Utility Functions} \label{sec_util}
+
+		Constant Relative Risk Aversion (CRRA)
+		\begin{equation}
+			u(c) = \frac{c^{1-\gamma}-1}{1-\gamma}
+		\end{equation}
+
+		Stone-Geary
+		\begin{equation}
+			u(c) = \frac{(c-\underline{c})^{1-\gamma}-1}{1-\gamma}
+		\end{equation}
+
+		Exponential
+		\begin{equation}
+			u(c) = 1-e^{-a c}
+		\end{equation}
+
+		Hyperbolic Absolute Risk Aversion (HARA)
+		\begin{equation}
+			u(c) = \frac{1-\gamma}{\gamma} \left( \frac{a c}{1-\gamma} + b \right)^\gamma
+		\end{equation}
+
+		Logarithmic
+		\begin{equation}
+			u(c) = \ln c
+		\end{equation}
+
+	\subsection{Non-Lottery Income Distributions} \label{sec_dist}
+
+		Beta Probability Density Function
+		\begin{equation}
+			f(x) = \frac{\left( \frac{x-x_{min}}{x_{max}-x_{min}} \right)^{a-1} \left(1 - \frac{x-x_{min}}{x_{max}-x_{min}} \right )^{b-1}} {B(a,b)}
+		\end{equation}
+		where $B(a,b)$ is the beta function.  In this paper $a=2, b=2.2$.
+
+		Normal Probability Density Function
+		\begin{equation}
+			f(x) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{1}{2} \left(\frac{x-\mu}{\sigma} \right)^2}
+		\end{equation}
+		where $\mu = \frac{x_{max}+x_{min}}{2}, \sigma = \frac{x_{max}-x_{min}}{3}$.
+
+		Uniform Probability Density Function
+		\begin{equation}
+			f(x) = q = \frac{1}{n}
+		\end{equation}	
+
+	\subsection{Lottery Setup} \label{sec_lottery}
+
+		A lottery ticket costs 2 units and pays 1.5 billion units with odds of 1:300,000,000.  This gives a gross expected return of 250 percent.  The net change in expected utility from buying a lottery ticket is given by the following formula.
+		\begin{equation}
+			\Delta E\{u\} = \frac{\omega - 1}{\omega} E\{u'(x - t)| \ell = 0 \} + \frac{1}{\omega} E\{u'(x - t + p)| \ell = 1 \}
+		\end{equation}
+		where $E\{.\}$ is the expectations operator, $u'(.)$ is the marginal utility function, and $\ell$ is an indicator variable equal to 1 if the winning ticket is purchased (with probability $\tfrac{1}{\omega}$) and 0 otherwise.
+
+\section{Results} \label{sec_results}
+
+	I run an initial set of calculations using a grid for $x$ with $n=101$, $x_{min} = 20,000$ and $x_{max} = 150,000$.  This corresponds to an individual with an expected non-lottery income between $70,000$ and $85,000$, but high variance in that income.  The results of these calculations are shown in Table \ref{tab_lottery1}. In every case expected consumption rises by three dollars despite a drop in two dollars due to the cost of a lottery ticket.  However, expected utility falls in every case as well.
+
+	\begin{table}[ht] 
+		\caption{Changes in Utility with High Variance}
+		\label{tab_lottery1}
+		\centering
+		\begin{tabular}{|ll|lll|}
+		    \hline
+			$u(c)$ & $f(x)$ & High Variance & Low Income & High Income \\
+			\hline
+			CRRA & beta & -6.19E-10 & -3.54E-09 & -9.65E-11 \\
+			CRRA & normal & -8.43E-10 & -4.30E-09 & -1.02E-10 \\
+			CRRA & uniform & -6.92E-10 & -3.35E-09 & -9.53E-11 \\
+			\hline
+			S-G & beta & -1.09E-09 & -1.08E-08 & -1.11E-10 \\
+			S-G & normal & -1.84E-09 & -1.52E-08 & -1.18E-10 \\
+			S-G & uniform & -1.53E-09 & -1.01E-08 & -1.10E-10 \\
+			\hline
+			exponential & beta & -2.46E-15 & -3.27E-13 & -2.51E-65 \\
+			exponential & normal & -6.07E-14 & -1.45E-12 & -2.65E-64 \\
+			exponential & uniform & -5.68E-14 & -4.34E-13 & -3.33E-65 \\
+			\hline
+			HARA & beta & -5.45E-03 & -8.97E-03 & -3.63E-03 \\
+			HARA & normal & -5.71E-03 & -9.41E-03 & -3.68E-03 \\
+			HARA & uniform & -5.27E-03 & -8.82E-03 & -3.62E-03 \\
+			\hline
+			log & beta & -3.23E-05 & -8.39E-05 & -1.39E-05 \\
+			log & normal & -3.62E-05 & -9.25E-05 & -1.43E-05 \\
+			log & uniform & -3.14E-05 & -8.13E-05 & -1.38E-05 \\
+			\hline
+		\end{tabular}
+	\end{table}
+
+	\begin{table}[ht] 
+		\caption{Values of $\gamma$ That Make the Change in Utility Equal Zero}
+		\label{tab_lottery2}
+		\centering
+		\begin{tabular}{|l|ll|}
+		    \hline
+			$f(x)$ & CRRA & S-G \\
+			\hline
+			beta & 0.1022 & 0.1001 \\
+			normal & 0.1013 & 0.0990 \\
+			uniform & 0.1033 & 0.1011 \\
+			\hline
+		\end{tabular}
+	\end{table}
+
+	\begin{table}[ht] 
+		\caption{Odds That Make the Change in Utility Equal Zero}
+		\label{tab_lottery3}
+		\centering
+		\begin{tabular}{|l|ll|ll|}
+		    \hline
+			$f(x)$ & \multicolumn{2}{c}{CRRA} & \multicolumn{2}{c}{S-G} \\
+			& odds & return & odds & return \\
+			\hline
+			beta & 1:26000 & 288462\% & 1:18600 & 403226\% \\
+			normal & 1:21500 & 348837\% & 1:13200 & 568182\% \\
+			uniform & 1:22700 & 330396\% & 1:13600 & 551471\% \\
+			\hline
+		\end{tabular}
+	\end{table}
+
+
+\FloatBarrier
 
 \section{Conclusions} \label{sec_concl}
 	

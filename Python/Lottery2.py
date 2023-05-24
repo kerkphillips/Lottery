@@ -39,7 +39,7 @@ def generate(distype, utype):
     # set up support for consumption
     eps = .001
     clow = 20000.
-    chigh = 120000.
+    chigh = 30000.
     cnum = 100
     cvec = np.linspace(clow+eps, chigh+eps, num = cnum+1)
     incr = cvec[1] - cvec[0]
@@ -50,8 +50,8 @@ def generate(distype, utype):
         b = 3
         pdf = stats.beta.pdf((cvec-clow)/(chigh-clow), a, b)
     elif distype == 'normal':
-        mu = 55000.
-        sigma = 30000.
+        mu = (chigh+clow)/3
+        sigma = (chigh-clow)/3
         pdf = stats.norm.pdf((cvec-mu)/sigma)
     else:
         pdf = np.ones(cnum+1)
@@ -69,18 +69,18 @@ def generate(distype, utype):
     # find utility
     params = []
     if utype == 'CRRA':
-        gamma = 1.1
+        gamma = 2.
         params = [gamma]
     elif utype == 'S-G':
-        gamma = 1.1
+        gamma = 2.
         cmin = 10000
         params = [gamma, cmin]
     elif utype == 'exponential':
-        a = 1/(10*incr)
+        a = 1/1000.
         params = [a]
     elif utype == 'HARA':
         a = 1.
-        b = incr
+        b = 1000.
         gamma = .5
         params = [gamma, a, b]
     uvec, muvec = util(cvec, utype, params)
@@ -128,8 +128,8 @@ def generate(distype, utype):
     # plt.show
     
     # parameters for the lottery
-    cost = incr
-    odds = 292000000
+    cost = 2
+    odds = 300000000
     #ratio = 1.1
     payoff = 1500000000
     Epayoff = .5*payoff/odds
@@ -156,12 +156,13 @@ def generate(distype, utype):
     udiff = Eulottery - Eu
     
     # marginal calculations
-    Margu = (-((odds-1.)/odds) * Emulose + (1./odds) * Emuwin) 
+    Margc = ((odds-1.)/odds) * (-2) + (1./odds) * (-2+payoff)
+    Margu = .5 * ( -((odds-1.)/odds) * 2 *Emulose + (1./odds) * payoff * Emuwin)
     
     # print(cdiff, udiff, 2*Margu)
     # print(cdiff/Ec, udiff/Eu, 2*Margu/Eu)
     
-    results = np.array([[distype, utype, cdiff, udiff, 2*Margu,cdiff/Ec, udiff/Eu, 2*Margu/Eu]])
+    results = np.array([[utype, distype, Margc, 2*Margu, cdiff, udiff, cdiff/Ec, udiff/Eu]])
     
     return results
 
@@ -175,8 +176,8 @@ resultarray = np.empty([len(dislist)*len(ulist), 8], dtype=object)
 
 
 i=0
-for distype in dislist:
-    for utype in ulist:
+for utype in ulist:
+    for distype in dislist:
         results = generate(distype, utype)
         resultarray[i,:] = results
         i = i + 1
