@@ -1,0 +1,81 @@
+\documentclass[letterpaper,12pt]{article}
+% packages used
+    \usepackage{natbib}
+	\usepackage{threeparttable}
+	\usepackage[format=hang,font=normalsize,labelfont=bf]{caption}
+	\usepackage{amsmath}
+	\usepackage{amssymb}
+	\usepackage{amsthm}
+	\usepackage{caption}
+	\usepackage{subcaption}
+	\usepackage{setspace}
+	\usepackage{float,color}
+	\usepackage[pdftex]{graphicx}
+	\usepackage{hyperref}
+	\usepackage{multirow}
+	\usepackage{float,graphicx,color}
+	\usepackage{graphics}
+    \usepackage{placeins}
+    \usepackage{authblk}
+    \usepackage{tikz}
+
+% other setup
+	\hypersetup{colorlinks, linkcolor=red, urlcolor=blue, citecolor=red, hypertexnames=false}
+	\graphicspath{{./figures/}}
+	\DeclareMathOperator*{\Max}{Max}
+	\bibliographystyle{aer}
+	\numberwithin{equation}{section}
+	\numberwithin{figure}{section}
+	\numberwithin{table}{section}
+	\newcommand\ve{\varepsilon}
+
+
+\begin{document}
+
+\begin{titlepage}
+	\title{Playing the Lottery: Even When It's a Good Deal, It's Not}
+
+	\author[1]{Kerk L. Phillips}
+
+	\affil[1]{\footnotesize US Congressional Budget Office, Washington, DC, USA}
+
+
+	\date{May 24, 2023\\
+	\small{version 2023.05.a}}
+
+	
+	\maketitle
+
+	\vspace{-0.3in}
+	\begin{abstract}
+	\small{
+	This paper shows that for almost any utility function and distribution of expected income, playing the lottery decreases expected utility even in cases where the expected payoff is greater than the price of a lottery ticket.
+
+	\vspace{0.1in}
+
+	\textit{keywords:} lottery, risk aversion, welfare analysis, numerical analysis
+
+	\vspace{0.1in}
+
+	\textit{JEL classifications: D0, D6, H8} }
+	\end{abstract}
+
+	\centering
+	IN PROGRESS
+
+	\thispagestyle{empty}
+\end{titlepage}
+
+\begin{spacing}{1.5}
+
+\section{Introduction} \label{sec_intro}
+
+	
+
+\newpage
+%\nocite{*}
+\bibliography{Lottery}
+
+\end{spacing}
+
+\end{document}
