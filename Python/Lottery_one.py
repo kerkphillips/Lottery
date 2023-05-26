@@ -42,8 +42,18 @@ cnum = 100
 cvec = np.linspace(clow+eps, chigh+eps, num = cnum+1)
 incr = cvec[1] - cvec[0]
 
-# set up PDF
+# parameters for the lottery
+cost = 2
+odds = 300000000
+#ratio = 1.1
+payoff = 1500000000
+Epayoff = .5*payoff/odds
+# print(Epayoff)
+
+utype = 'CRRA'
 distype = 'beta'
+
+# set up PDF
 if distype == 'beta':
     a = 2
     b = 3
@@ -55,9 +65,9 @@ elif distype == 'normal':
 else:
     pdf = np.ones(cnum+1)
     for i in range(0, cnum+1):
-        if cvec[i] < clow:
+        if cvec[i] < clow+eps:
             pdf[i] = 0.
-        elif cvec[i] > chigh:
+        elif cvec[i] > chigh+eps:
             pdf[i] = 0.
         else:
             pdf[i] = 1.
@@ -66,7 +76,6 @@ else:
 prob = pdf/np.sum(pdf)    
 
 # find utility
-utype = 'S-G'
 params = []
 if utype == 'CRRA':
     gamma = 2.
@@ -126,14 +135,6 @@ plt.plot(Ec3, Eu4, 'b--')
 plt.xlabel('Consumption')
 plt.ylabel('Utility '+utype)
 plt.show
-
-# parameters for the lottery
-cost = 2
-odds = 18600
-#ratio = 1.1
-payoff = 1500000000
-Epayoff = .5*payoff/odds
-# print(Epayoff)
 
 # play and lose lottery
 cveclose = np.linspace(clow+eps-cost, chigh+eps-cost, num = cnum+1)

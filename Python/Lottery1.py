@@ -56,9 +56,9 @@ def generate(distype, utype):
     else:
         pdf = np.ones(cnum+1)
         for i in range(0, cnum+1):
-            if cvec[i] < clow:
+            if cvec[i] < clow+eps:
                 pdf[i] = 0.
-            elif cvec[i] > chigh:
+            elif cvec[i] > chigh+eps:
                 pdf[i] = 0.
             else:
                 pdf[i] = 1.
@@ -133,7 +133,7 @@ def generate(distype, utype):
     #ratio = 1.1
     payoff = 1500000000
     Epayoff = .5*payoff/odds
-   # print(Epayoff)
+    # print(Epayoff)
     
     # play and lose lottery
     cveclose = np.linspace(clow+eps-cost, chigh+eps-cost, num = cnum+1)

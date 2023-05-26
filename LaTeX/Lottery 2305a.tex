@@ -34,13 +34,15 @@
 
 \begin{titlepage}
 	\title{Playing the Lottery: Even When It's a Good Deal, It's Not}
+    
+    \thanks{The views expressed in this paper are the authors' and should not be interpreted as those of the Congressional Budget Office.}
 
-	\author[1]{Kerk L. Phillips}
+	\author{Kerk L. Phillips \\
+	\small US Congressional Budget Office \\
+	\small \href{mailto:kerk.phillips@cbo.gov}{kerk.phillips@cbo.gov} }
 
-	\affil[1]{\footnotesize US Congressional Budget Office, Washington, DC, USA}
 
-
-	\date{May 24, 2023\\
+	\date{May 25, 2023\\
 	\small{version 2023.05.a}}
 
 	
@@ -49,7 +51,7 @@
 	\vspace{-0.3in}
 	\begin{abstract}
 	\small{
-	This paper shows that for almost any utility function and distribution of expected income, playing the lottery decreases expected utility even in cases where the expected payoff is greater than the price of a lottery ticket.
+	This paper shows that for many common utility function and distributions of expected income, playing the lottery decreases expected utility even in cases where the expected payoff is greater than the price of a lottery ticket.
 
 	\vspace{0.1in}
 
@@ -61,7 +63,7 @@
 	\end{abstract}
 
 	\centering
-	IN PROGRESS
+	Preliminary, Comments Appreciated
 
 	\thispagestyle{empty}
 \end{titlepage}
@@ -131,46 +133,64 @@
 
 	\subsection{Lottery Setup} \label{sec_lottery}
 
-		A lottery ticket costs 2 units and pays 1.5 billion units with odds of 1:300,000,000.  This gives a gross expected return of 250 percent.  The net change in expected utility from buying a lottery ticket is given by the following formula.
-		\begin{equation}
-			\Delta E\{u\} = \frac{\omega - 1}{\omega} E\{u'(x - t)| \ell = 0 \} + \frac{1}{\omega} E\{u'(x - t + p)| \ell = 1 \}
-		\end{equation}
-		where $E\{.\}$ is the expectations operator, $u'(.)$ is the marginal utility function, and $\ell$ is an indicator variable equal to 1 if the winning ticket is purchased (with probability $\tfrac{1}{\omega}$) and 0 otherwise.
+		There are two lotteries considered in this paper.  First, a typical lottery with payouts in line with those found for the Powerball lottery.  And second, a lottery with a very large payout in line with the highest history jackpots for the Powerball and MegaMillions lotteries.
+
+		For a typical lottery, a ticket costs 2 dollars and pays \$226 million with odds of 1:300,000,000.  This gives a expected net return of -62.3 percent, with a ticket paying an expected value of 75 cents.
+
+		A high payout lottery has the same odds and ticket cost, pays \$ 1.5 billion.  This gives a expected net return of 150 percent, with a ticket paying an expected value of 5 dollars.
 
 \section{Results} \label{sec_results}
 
-	I run an initial set of calculations using a grid for $x$ with $n=101$, $x_{min} = 20,000$ and $x_{max} = 150,000$.  This corresponds to an individual with an expected non-lottery income between $70,000$ and $85,000$, but high variance in that income.  The results of these calculations are shown in Table \ref{tab_lottery1}. In every case expected consumption rises by three dollars despite a drop in two dollars due to the cost of a lottery ticket.  However, expected utility falls in every case as well.
+	I first run a set of calculations using a grid for $x$ with $n=101$, $x_{min} = 20,000$ and $x_{max} = 150,000$.  This corresponds to an individual with an expected non-lottery income between $70,000$ and $85,000$, but high variance in that income.  I set the payoff in this case to the average jackpot for the Powerball between May 2022 and May 2023, which is 226 million dollars.  In this case the expected change in consumption from playing the lottery is -\$1.25.
+
+	I then run a set of calculations using the same grid, utility, and distribution assumptions as above, but increase the payoff to 1.5 billion dollars, the rough average of the highest five MegaMillions and Powerball payoffs  In every case expected consumption rises by three dollars despite a drop in two dollars due to the cost of a lottery ticket.  However, expected utility falls in every case as well.  The results of these calculations are shown in Table \ref{tab_lottery1} in the fourth column.  For reference, the probability distributions are shown in Figure \ref{fig_PDFs}.  The utility losses from this lottery are virtually the same as playing a typical lottery with an expected consumption loss.  In all cases the expected utility from wining is not sufficiently large to move expected utility in the face of such long odds are wining.
+
+	I then set up two alternative individuals.  The first has income between $x_{min} = 20,000$ and $x_{max} = 30,000$ and the second has income between $x_{min} = 140,000$ and $x_{max} = 150,000$.  The results for these two individuals are shown in the last two columns of Table \ref{tab_lottery1}.  The probabilities in these cases are scaled versions of the ones in Figure \ref{fig_PDFs}, having the same shape, but different upper and lower bounds on non-lottery income.
+
+	Table \ref{tab_lottery1} shows that even though expected consumption rises by three dollars for all participants regardless of their utility function or the distribution of their non-lottery income, their expected utility falls.  It also shows that the loss of utility is much greater for low-income individuals than high-income.  The ratio of expected utility lose for low-income to high-income is lowest at 2.45 for HARA utility and a uniform distribution of income, and highest at 1.304E+52 for exponential utility and a beta distribution.
+
+	It is not necessarily the case that expected utility will always be negative from playing the lottery.  If risk aversion were low enough or the odds were good enough then expected utility could rise.  However, as Tables \ref{tab_lottery2} and \ref{tab_lottery3} show, the levels of risk aversion must be unreasonably low, and the odds must be extremely high.  Table \ref{tab_lottery2} calculates the values of $\gamma$, the coefficient of risk aversion, in the CRRA and Stone-Geary utility functions, that will make the high-variance individual indifferent between playing and not playing the lottery.  These values cluster around 0.1.  Most empirical estimates of consumer relative risk aversion range from 1.0 to 4.0 or higher.  Table \ref{tab_lottery3} calculates the odds that will make the high-variance individual indifferent between playing and not playing the lottery for the same utility functions and distributions.  It also shows the expected percent returns on a lottery ticket for these odds.  These are in the range of 228 thousand to 569 thousand percent, numbers which are simply impossible.
+
 
 	\begin{table}[ht] 
 		\caption{Changes in Utility with High Variance}
 		\label{tab_lottery1}
 		\centering
-		\begin{tabular}{|ll|lll|}
+		\small
+		\begin{tabular}{|lll|lll|}
 		    \hline
-			$u(c)$ & $f(x)$ & High Variance & Low Income & High Income \\
+			$u(c)$ & $f(x)$ & Typical & \multicolumn{3}{c}{High Payoff} \\
+			& & Payoff & High Variance & Low Income & High Income \\
 			\hline
-			CRRA & beta & -6.19E-10 & -3.54E-09 & -9.65E-11 \\
-			CRRA & normal & -8.43E-10 & -4.30E-09 & -1.02E-10 \\
-			CRRA & uniform & -6.92E-10 & -3.35E-09 & -9.53E-11 \\
+			CRRA & beta & -6.19E-10 & -6.19E-10 & -3.54E-09 & -9.65E-11 \\
+			CRRA & normal & -8.43E-10 & -8.43E-10 & -4.30E-09 & -1.02E-10 \\
+			CRRA & uniform & -6.86E-10 & -6.86E-10 & -3.34E-09 & -9.52E-11 \\
 			\hline
-			S-G & beta & -1.09E-09 & -1.08E-08 & -1.11E-10 \\
-			S-G & normal & -1.84E-09 & -1.52E-08 & -1.18E-10 \\
-			S-G & uniform & -1.53E-09 & -1.01E-08 & -1.10E-10 \\
+			S-G & beta & -1.09E-09 & -1.09E-09 & -1.08E-08 & -1.11E-10 \\
+			S-G & normal & -1.84E-09 & -1.84E-09 & -1.52E-08 & -1.18E-10 \\
+			S-G & uniform & -1.52E-09 & -1.52E-09 & -1.00E-08 & -1.10E-10 \\
 			\hline
-			exponential & beta & -2.46E-15 & -3.27E-13 & -2.51E-65 \\
-			exponential & normal & -6.07E-14 & -1.45E-12 & -2.65E-64 \\
-			exponential & uniform & -5.68E-14 & -4.34E-13 & -3.33E-65 \\
+			exponential & beta & -2.46E-15 & -2.46E-15 & -3.27E-13 & -2.51E-65 \\
+			exponential & normal & -6.07E-14 & -6.07E-14 & -1.45E-12 & -2.65E-64 \\
+			exponential & uniform & -5.62E-14 & -5.62E-14 & -4.30E-13 & -3.30E-65 \\
 			\hline
-			HARA & beta & -5.45E-03 & -8.97E-03 & -3.63E-03 \\
-			HARA & normal & -5.71E-03 & -9.41E-03 & -3.68E-03 \\
-			HARA & uniform & -5.27E-03 & -8.82E-03 & -3.62E-03 \\
+			HARA & beta & -5.51E-03 & -5.45E-03 & -8.97E-03 & -3.63E-03 \\
+			HARA & normal & -5.76E-03 & -5.71E-03 & -9.41E-03 & -3.68E-03 \\
+			HARA & uniform & -5.30E-03 & -5.25E-03 & -8.81E-03 & -3.62E-03 \\
 			\hline
-			log & beta & -3.23E-05 & -8.39E-05 & -1.39E-05 \\
-			log & normal & -3.62E-05 & -9.25E-05 & -1.43E-05 \\
-			log & uniform & -3.14E-05 & -8.13E-05 & -1.38E-05 \\
+			log & beta & -3.23E-05 & -3.23E-05 & -8.39E-05 & -1.39E-05 \\
+			log & normal & -3.62E-05 & -3.62E-05 & -9.25E-05 & -1.43E-05 \\
+			log & uniform & -3.13E-05 & -3.13E-05 & -8.11E-05 & -1.38E-05 \\
 			\hline
 		\end{tabular}
 	\end{table}
+
+	\begin{figure}[ht] 
+		\centering
+		\caption{Three Probability Distributions}
+		\label{fig_PDFs}
+		\includegraphics[width=.9\textwidth]{images/PDFs.png}
+	\end{figure}
 
 	\begin{table}[ht] 
 		\caption{Values of $\gamma$ That Make the Change in Utility Equal Zero}
@@ -207,6 +227,8 @@
 \FloatBarrier
 
 \section{Conclusions} \label{sec_concl}
+
+	This paper has demonstrated that buying a lottery ticket reduces expected utility for a wide range of utility functions and reasonable levels of risk aversion.  The only cases when expected utility can rise is when the expected payoff from a lottery ticket exceeds the price of the ticket, which occurs only rarely when the jackpot rolls over several times in a row due to no winning number being drawn.  Even in this case, for expected utility to rise, the individual must be essentially risk neutral.
 	
 
 %\newpage

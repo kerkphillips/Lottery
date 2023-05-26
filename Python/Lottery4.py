@@ -38,7 +38,7 @@ def generate(distype, utype):
 
     # set up support for consumption
     eps = .001
-    clow = 140000.
+    clow = 20000.
     chigh = 150000.
     cnum = 100
     cvec = np.linspace(clow+eps, chigh+eps, num = cnum+1)
@@ -131,7 +131,7 @@ def generate(distype, utype):
     cost = 2
     odds = 300000000
     #ratio = 1.1
-    payoff = 1500000000
+    payoff = 226000000
     Epayoff = .5*payoff/odds
     # print(Epayoff)
     
