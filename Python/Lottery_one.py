@@ -46,11 +46,11 @@ incr = cvec[1] - cvec[0]
 cost = 2
 odds = 300000000
 #ratio = 1.1
-payoff = 1500000000
+payoff = 23.2*1000000000000
 Epayoff = .5*payoff/odds
 # print(Epayoff)
 
-utype = 'CRRA'
+utype = 'log'
 distype = 'beta'
 
 # set up PDF
@@ -153,16 +153,19 @@ Emuwin = np.sum(muvecwin*prob)
 # expected values
 Eclottery = ((odds-1.)/odds) * Eclose + (1./odds) * Ecwin
 cdiff = Eclottery - Ec
-Eulottery = ((odds-1.)/odds) * Eulose + (1./odds) * Euwin
+Eulotterylose = ((odds-1.)/odds) * Eulose
+Eulotterywin = (1./odds) * Euwin
+Eulottery = Eulotterywin + Eulotterylose
 udiff = Eulottery - Eu
 
 # marginal calculations
 Margc = ((odds-1.)/odds) * (-2) + (1./odds) * (-2+payoff)
 Margu = .5 * ( -((odds-1.)/odds) * 2 *Emulose + (1./odds) * payoff * Emuwin)
 
-print(cdiff, udiff, Margc, 2*Margu)
+print(cdiff, udiff, Eulotterylose, Eulotterywin)
 
-results = np.array([[distype, utype, cdiff, udiff, 2*Margu, cdiff/Ec, udiff/Eu, 2*Margu/Eu]])
+results = np.array([[distype, utype, cdiff, udiff, \
+    Eulotterylose, Eulotterywin, 2*Margu, cdiff/Ec, udiff/Eu, 2*Margu/Eu]])
 
 
 
